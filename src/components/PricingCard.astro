@@ -1,0 +1,78 @@
+---
+const { cardData } = Astro.props;
+
+import Button from "../components/Button.astro";
+
+const {
+  tier,
+  most_popular,
+  amount_per_month,
+  title,
+  description,
+  btn_text,
+  features,
+} = cardData;
+---
+
+<article>
+  <p>{tier}</p>
+  {most_popular && <p>Most Popular</p>}
+  <div>
+    <div>
+      <span>$</span>
+      <span>{amount_per_month}</span>
+      {amount_per_month > 0 && <span>/mo</span>}
+    </div>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+  <Button id={tier.toLowerCase()}>{btn_text}</Button>
+  <div>
+    {
+      features.map((f) => (
+        <div>
+          {/* icon */}
+          {f.checked ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 15 15"
+            >
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M11.467 3.727c.289.189.37.576.181.865l-4.25 6.5a.625.625 0 0 1-.944.12l-2.75-2.5a.625.625 0 0 1 .841-.925l2.208 2.007l3.849-5.886a.625.625 0 0 1 .865-.181"
+                clip-rule="evenodd"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 15 15"
+            >
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M11.782 4.032a.575.575 0 1 0-.813-.814L7.5 6.687L4.032 3.218a.575.575 0 0 0-.814.814L6.687 7.5l-3.469 3.468a.575.575 0 0 0 .814.814L7.5 8.313l3.469 3.469a.575.575 0 0 0 .813-.814L8.313 7.5z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          )}
+
+          {/* text */}
+          <p>{f.title}</p>
+        </div>
+      ))
+    }
+  </div>
+</article>
+
+<style>
+  article {
+    padding: 0.5rem;
+    border: 2px solid black;
+  }
+</style>
