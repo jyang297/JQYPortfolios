@@ -11,6 +11,12 @@ import "../styles/global.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap"
+      rel="stylesheet"
+    />
     <title>Astro</title>
   </head>
   <body>
@@ -18,11 +24,18 @@ import "../styles/global.css";
       {cards.map((card) => <PricingCard cardData={card} />)}
     </section>
     <style>
+      body {
+        display: grid;
+        place-content: center;
+        min-height: 100vh;
+        padding: var(--space--xl);
+      }
       [aria-label="Pricing"] {
         display: flex;
-        gap: 1.5rem;
+        gap: var(--space--xl);
         flex-wrap: wrap;
         align-items: flex-start;
+        justify-content: center;
       }
     </style>
   </body>
