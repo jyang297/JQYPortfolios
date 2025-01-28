@@ -1,7 +1,22 @@
 ---
-const { cardData } = Astro.props;
+import Button from "@/components/Button.astro";
 
-import Button from "../components/Button.astro";
+type Props = {
+  cardData: {
+    tier: string;
+    most_popular: boolean;
+    amount_per_month: number;
+    title: string;
+    description: string;
+    btn_text: string;
+    features: {
+      title: string;
+      checked: boolean;
+    }[];
+  };
+};
+
+const { cardData } = Astro.props;
 
 const {
   tier,
