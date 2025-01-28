@@ -1,14 +1,25 @@
 ---
-import ProductCard from "@/components/ProductCard.astro";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
 
-const products = await getCollection("products");
 ---
 
-<BaseLayout>
-  <h1>Astro Pin Products</h1>
-  <ul class="product-list">
-    {products.map((product) => <ProductCard product={product} />)}
-  </ul>
-</BaseLayout>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Components</title>
+  </head>
+  <body>
+    <h1>Astro Components</h1>
+  </body>
+  <style>
+    @import "https://unpkg.com/open-props";
+    @import "https://unpkg.com/open-props/normalize.min.css";
+    body {
+      display: grid;
+      place-content: center;
+      padding: 1.5rem;
+    }
+  </style>
+</html>

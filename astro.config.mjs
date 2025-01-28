@@ -1,21 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
-
-import vercel from "@astrojs/vercel/serverless";
-
-import icon from "astro-icon";
+import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
-export default defineConfig({
-  image: {
-    domains: ["files.stripe.com"],
-  },
-
-  experimental: {
-    contentLayer: true,
-  },
-
-  output: "server",
-  adapter: vercel(),
-  integrations: [icon()],
-});
+export default defineConfig({});
