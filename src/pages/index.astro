@@ -30,15 +30,16 @@ const headings = [
     <title>Astro Components</title>
   </head>
   <body>
-    {
+    <!-- {
       headings.map((heading) => {
         return (
-          <Heading tag={"pizza"} size={heading.size}>
+          <Heading tag={heading.tag} size={heading.size}>
             {heading.text.toLocaleUpperCase()}
           </Heading>
         );
       })
-    }
+    } -->
+    <Heading tag="h2" size="h3"> hi </Heading>
     <Button id="my-id2" aria-label="click me btn"> Click me </Button>
   </body>
   <style>
