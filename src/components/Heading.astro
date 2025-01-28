@@ -1,0 +1,42 @@
+---
+const sizes = {
+  h1: "h1",
+  h2: "h2",
+  h3: "h3",
+  h4: "h4",
+  h5: "h5",
+  h6: "h6",
+};
+
+const { tag, size, ...rest } = Astro.props;
+const CustomTag = tag;
+---
+
+<CustomTag class:list={["default", sizes[size]]} {...rest}>
+  <slot />
+</CustomTag>
+
+<style>
+  .default {
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .h1 {
+    font-size: 4rem;
+  }
+  .h2 {
+    font-size: 3.2rem;
+  }
+  .h3 {
+    font-size: 2.5rem;
+  }
+  .h4 {
+    font-size: 1.8rem;
+  }
+  .h5 {
+    font-size: 1.4rem;
+  }
+  .h6 {
+    font-size: 1.2rem;
+  }
+</style>

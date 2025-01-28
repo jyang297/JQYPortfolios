@@ -1,5 +1,24 @@
 ---
 import Button from "../components/Button.astro";
+import Heading from "../components/Heading.astro";
+
+const headings = [
+  {
+    tag: "h1",
+    size: "h2",
+    text: "Heading 1",
+  },
+  {
+    tag: "h2",
+    size: "h5",
+    text: "Heading 2",
+  },
+  {
+    tag: "h4",
+    size: "h1",
+    text: "Heading 3",
+  },
+];
 ---
 
 <html lang="en">
@@ -11,8 +30,16 @@ import Button from "../components/Button.astro";
     <title>Astro Components</title>
   </head>
   <body>
-    <h1>Astro Components</h1>
-    <Button id="my-id2" aria-label="click me btn">Btn Text</Button>
+    {
+      headings.map((heading) => {
+        return (
+          <Heading tag={"pizza"} size={heading.size}>
+            {heading.text.toLocaleUpperCase()}
+          </Heading>
+        );
+      })
+    }
+    <Button id="my-id2" aria-label="click me btn"> Click me </Button>
   </body>
   <style>
     @import "https://unpkg.com/open-props";
