@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Sarah Johnson",
+    "role": "Project Manager",
+    "email": "sarah.johnson@example.com",
+    "department": "Engineering"
+  },
+  {
+    "id": 2,
+    "name": "Michael Chen",
+    "role": "Senior Developer",
+    "email": "michael.chen@example.com",
+    "department": "Software Development"
+  },
+  {
+    "id": 3,
+    "name": "Emma Wilson",
+    "role": "UX Designer",
+    "email": "emma.wilson@example.com",
+    "department": "Product Design"
+  }
+]
