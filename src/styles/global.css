@@ -1,3 +1,6 @@
+@import "https://unpkg.com/open-props";
+@import "https://unpkg.com/open-props/normalize.min.css";
+
 *,
 *::before,
 *::after {
@@ -43,4 +46,5 @@ body {
   font-size: var(--fs--sm);
   background-color: var(--clr-bkg);
   color: var(--clr-text);
+  padding: var(--space--md);
 }

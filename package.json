@@ -1,17 +1,14 @@
 {
-  "name": "module-2-2025",
+  "name": "module-4-2025",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "astro": "^5.1.10",
-    "typescript": "^5.7.3"
+    "astro": "^5.2.5"
   }
 }
