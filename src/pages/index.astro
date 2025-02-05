@@ -3,7 +3,8 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layout/BaseLayout.astro";
 
 const teamData = await getCollection("team");
-console.log("🚀 ~ teamData:", teamData);
+const posts = await getCollection("posts");
+console.log("🚀 ~ posts:", posts);
 ---
 
 <BaseLayout>
