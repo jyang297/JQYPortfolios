@@ -14,6 +14,6 @@ console.log("🚀 ~ todos:", todos);
   <h1>Homepage</h1>
   <!-- {teamData.map((p) => <p>{p.data.name}</p>)} -->
   <ul>
-    {todos.map((t) => <li>{t.data.title}</li>)}
+    {todos.map((t) => <li>{t.data.completed ? "Yes" : "No"}</li>)}
   </ul>
 </BaseLayout>

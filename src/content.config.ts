@@ -13,11 +13,24 @@ export const collections = {
         id: todo.id.toString(),
       }));
     },
+    schema: z.object({
+      title: z.string(),
+      completed: z.boolean(),
+    }),
   }),
   posts: defineCollection({
     loader: glob({
       pattern: "src/data/posts/**/*.md",
       // generateId: ({ entry, data }) => data.title as unknown as string,
+    }),
+    schema: z.object({
+      title: z.string(),
+      tags: z.array(z.string()),
+      pubDate: z.coerce.date(),
+      isDraft: z.boolean(),
+      canonicalURL: z.string().optional(),
+      cover: z.string(),
+      coverAlt: z.string(),
     }),
   }),
   team: defineCollection({

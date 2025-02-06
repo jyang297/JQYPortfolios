@@ -1,0 +1,14 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layout/BaseLayout.astro";
+
+const posts = await getCollection("posts", ({ data }) => data.canonicalURL);
+---
+
+<BaseLayout>
+  <h1>Homepage</h1>
+  <!-- {teamData.map((p) => <p>{p.data.name}</p>)} -->
+  <ul>
+    {posts.map((p) => <li>{p.data.canonicalURL}</li>)}
+  </ul>
+</BaseLayout>
