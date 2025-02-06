@@ -23,16 +23,17 @@ export const collections = {
       pattern: "src/data/posts/**/*.md",
       // generateId: ({ entry, data }) => data.title as unknown as string,
     }),
-    schema: z.object({
-      title: z.string().max(32),
-      tags: z.array(z.string()),
-      pubDate: z.coerce.date(),
-      isDraft: z.boolean(),
-      canonicalURL: z.string().url().optional(),
-      cover: z.string(),
-      coverAlt: z.string(),
-      author: reference("team"),
-    }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string().max(32),
+        tags: z.array(z.string()),
+        pubDate: z.coerce.date(),
+        isDraft: z.boolean(),
+        canonicalURL: z.string().url().optional(),
+        cover: image(),
+        coverAlt: z.string(),
+        author: reference("team"),
+      }),
   }),
   team: defineCollection({
     loader: file("src/data/team.json", {

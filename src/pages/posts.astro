@@ -15,7 +15,10 @@ const author = await getEntry("team", posts[0].data.author.id);
     {
       posts.map((p) => (
         <li>
-          {p.data.canonicalURL} by {author ? author.data.name : ""}
+          <p>
+            {p.data.canonicalURL} by {author ? author.data.name : ""}
+          </p>
+          <img src={p.data.cover.src} alt={p.data.coverAlt} />
         </li>
       ))
     }
