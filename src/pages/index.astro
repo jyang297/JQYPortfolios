@@ -4,7 +4,9 @@ import BaseLayout from "../layout/BaseLayout.astro";
 
 const teamData = await getCollection("team");
 const posts = await getCollection("posts");
-console.log("🚀 ~ posts:", posts);
+const cats = await getCollection("cats");
+const toml = await getCollection("toml");
+console.log("🚀 ~ toml:", toml);
 ---
 
 <BaseLayout>
