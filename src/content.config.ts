@@ -4,6 +4,16 @@ import { parse as parseToml } from "toml";
 import { parse as parseCsv } from "csv-parse/sync";
 
 export const collections = {
+  todos: defineCollection({
+    loader: async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+      const data = await res.json();
+      return data.map((todo: any) => ({
+        ...todo,
+        id: todo.id.toString(),
+      }));
+    },
+  }),
   posts: defineCollection({
     loader: glob({
       pattern: "src/data/posts/**/*.md",
