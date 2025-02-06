@@ -5,6 +5,7 @@ pubDate: 2025-02-04
 isDraft: false
 cover: ./images/post-3.jpg
 coverAlt: "laptop at night"
+author: "Emma Wilson"
 ---
 
 Do laboris ut fugiat labore. Commodo ullamco deserunt mollit enim occaecat qui. Aliquip dolore quis id duis consequat consectetur nulla. Dolor enim ea aute occaecat commodo et et ipsum culpa qui adipisicing qui ex fugiat cillum. Adipisicing proident eiusmod minim. Ex aute ea ut deserunt aliquip esse adipisicing aute in incididunt. Cupidatat ipsum laboris dolore sint amet proident nisi.

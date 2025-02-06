@@ -1,5 +1,5 @@
 import { file, glob } from "astro/loaders";
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 import { parse as parseToml } from "toml";
 import { parse as parseCsv } from "csv-parse/sync";
 
@@ -31,6 +31,7 @@ export const collections = {
       canonicalURL: z.string().optional(),
       cover: z.string(),
       coverAlt: z.string(),
+      author: reference("team"),
     }),
   }),
   team: defineCollection({
@@ -41,6 +42,7 @@ export const collections = {
       name: z.string(),
       role: z.string(),
       email: z.string().email(),
+      todos: z.array(reference("todos")),
       department: z.enum([
         "Engineering",
         "Software Development",
