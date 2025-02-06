@@ -24,11 +24,11 @@ export const collections = {
       // generateId: ({ entry, data }) => data.title as unknown as string,
     }),
     schema: z.object({
-      title: z.string(),
+      title: z.string().max(32),
       tags: z.array(z.string()),
       pubDate: z.coerce.date(),
       isDraft: z.boolean(),
-      canonicalURL: z.string().optional(),
+      canonicalURL: z.string().url().optional(),
       cover: z.string(),
       coverAlt: z.string(),
       author: reference("team"),
