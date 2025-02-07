@@ -21,7 +21,8 @@ export const collections = {
   posts: defineCollection({
     loader: glob({
       pattern: "src/data/posts/**/*.md",
-      // generateId: ({ entry, data }) => data.title as unknown as string,
+      generateId: ({ entry }) =>
+        entry.replace("src/data/posts/", "").replace(".md", ""),
     }),
     schema: ({ image }) =>
       z.object({

@@ -2,7 +2,10 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layout/BaseLayout.astro";
 
-const teamData = await getCollection("team");
+const teamData = await getCollection(
+  "team",
+  ({ data }) => data.department === "Product Design"
+);
 const posts = await getCollection("posts");
 const cats = await getCollection("cats");
 const toml = await getCollection("toml");
@@ -11,7 +14,7 @@ const todos = await getCollection("todos");
 
 <BaseLayout>
   <h1>Homepage</h1>
-  {teamData.map((p) => <p>{p.data.todos}</p>)}
+  {teamData.map((p) => <p>{p.data.name}</p>)}
   <!-- <ul>
     {todos.map((t) => <li>{t.data.completed ? "Yes" : "No"}</li>)}
   </ul> -->
