@@ -1,5 +1,5 @@
 {
-  "name": "module-4-2025",
+  "name": "module-5-2025",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,8 +9,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.2.5",
-    "csv-parse": "^5.6.0",
-    "toml": "^3.0.0"
+    "astro": "^5.3.0"
   }
 }
