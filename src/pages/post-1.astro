@@ -4,7 +4,6 @@ import BaseLayout from "../layout/BaseLayout.astro";
 import { getEntry } from "astro:content";
 
 const post = await getEntry("posts", "post-1");
-console.log("🚀 ~ post:", post);
 
 if (!post) {
   return new Response(null, {

@@ -1,51 +1,37 @@
-{
-  "team-1": [
-    {
-      "id": "Sarah Johnson",
-      "name": "Sarah Johnson",
-      "role": "Project Manager",
-      "email": "sarah.johnson@example.com",
-      "department": "Engineering",
-      "todos": ["1", "2"]
-    },
-    {
-      "id": "Michael Chen",
-      "name": "Michael Chen",
-      "role": "Senior Developer",
-      "email": "michael.chen@example.com",
-      "department": "Software Development",
-      "todos": ["12"]
-    },
-    {
-      "id": "Emma Wilson",
-      "name": "Emma Wilson",
-      "role": "UX Designer",
-      "email": "emma.wilson@example.com",
-      "department": "Product Design",
-      "todos": ["3", "5"]
-    }
-  ],
-  "team-2": [
-    {
-      "id": 1,
-      "name": "2Sarah Johnson",
-      "role": "Project Manager",
-      "email": "sarah.johnson@example.com",
-      "department": "Engineering"
-    },
-    {
-      "id": 2,
-      "name": "2Michael Chen",
-      "role": "Senior Developer",
-      "email": "michael.chen@example.com",
-      "department": "Software Development"
-    },
-    {
-      "id": 3,
-      "name": "2Emma Wilson",
-      "role": "UX Designer",
-      "email": "emma.wilson@example.com",
-      "department": "Product Design"
-    }
-  ]
-}
+[
+	{
+		"id": "Sarah Johnson",
+		"name": "Sarah Johnson",
+		"role": "Project Manager",
+		"email": "sarah.johnson@example.com",
+		"department": "Engineering"
+	},
+	{
+		"id": "Michael Chen",
+		"name": "Michael Chen",
+		"role": "Senior Developer",
+		"email": "michael.chen@example.com",
+		"department": "Software Development"
+	},
+	{
+		"id": "Emma Wilson",
+		"name": "Emma Wilson",
+		"role": "UX Designer",
+		"email": "emma.wilson@example.com",
+		"department": "Product Design"
+	},
+	{
+		"id": "David Rodriguez",
+		"name": "David Rodriguez",
+		"role": "Software Architect",
+		"email": "david.rodriguez@example.com",
+		"department": "Software Development"
+	},
+	{
+		"id": "Lisa Zhang",
+		"name": "Lisa Zhang",
+		"role": "Systems Engineer",
+		"email": "lisa.zhang@example.com",
+		"department": "Engineering"
+	}
+]
