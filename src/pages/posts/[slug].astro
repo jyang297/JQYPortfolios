@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../layout/BaseLayout.astro";
+import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+  }));
+}) satisfies GetStaticPaths;
+
+const { slug } = Astro.params;
+
+const post = await getEntry("posts", slug);
+
+if (!post) {
+  return new Response(null, {
+    status: 404,
+  });
+}
+---
+
+<BaseLayout>
+  <h1>{post.data.title}</h1>
+  <img src={post.data.cover.src} alt={post.data.coverAlt} />
+</BaseLayout>
