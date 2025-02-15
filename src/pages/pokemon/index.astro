@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layout/BaseLayout.astro";
+import type { PokemonRes } from "./PokeType";
+
+const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
+const data: PokemonRes = await res.json();
+---
+
+<BaseLayout>
+  <ul role="list">
+    {
+      data.results.map((p) => (
+        <li>
+          <a href={`/pokemon/${p.name}`}>{p.name}</a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
