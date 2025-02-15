@@ -1,24 +1,28 @@
 ---
+export const prerender = false;
+
 import type { GetStaticPaths } from "astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
 import { getEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-export const getStaticPaths = (async () => {
-  const posts = await getCollection("posts");
-  return posts.map((post) => ({
-    params: { slug: post.data.slug },
-  }));
-}) satisfies GetStaticPaths;
+// export const getStaticPaths = (async () => {
+//   const posts = await getCollection("posts");
+//   return posts.map((post) => ({
+//     params: { slug: post.data.slug },
+//   }));
+// }) satisfies GetStaticPaths;
 
 const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect("404");
+}
 
 const post = await getEntry("posts", slug);
 
 if (!post) {
-  return new Response(null, {
-    status: 404,
-  });
+  return Astro.redirect("404");
 }
 ---
 
