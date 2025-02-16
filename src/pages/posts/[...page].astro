@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layout/BaseLayout.astro";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("posts");
+  return paginate(posts, {
+    pageSize: 2,
+  });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout>
+  <h1>Read my blog! (page {page.currentPage})</h1>
+  <ul role="list">
+    {
+      page.data
+        .sort((a, b) => a.data.title.localeCompare(b.data.title))
+        .map((p) => (
+          <li>
+            <a href={`/posts/${p.data.slug}`}>{p.data.title}</a>
+          </li>
+        ))
+    }
+  </ul>
+  {page.url.prev && <a href={page.url.prev}>Prev</a>}
+  {page.url.next && <a href={page.url.next}>Next</a>}
+</BaseLayout>
