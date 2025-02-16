@@ -1,10 +1,10 @@
 # Rewrites, redirects, and preventing.
 
-1. Rewrite `/about` to show `/` instead.
+1. Rewrite `/me` to show `/` instead.
    
-2. Use a global config to redirect `/about` to `/`.
+2. Use a global config to redirect `/me` to `/`.
 
-3. Prevent `/about` from being built.
+3. Prevent `/me` from being built.
 
 # Creating routes
 1. Add a `/posts` page that shows all link to all posts in your `posts` content collection.
