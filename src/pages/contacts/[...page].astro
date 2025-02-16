@@ -1,0 +1,47 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../layout/BaseLayout.astro";
+
+type Contact = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
+};
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const data: Contact[] = await res.json();
+  return paginate(data, {
+    pageSize: 2,
+  });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout>
+  <h1>Contacts (Page {page.currentPage})</h1>
+  <ul role="list">
+    {page.data.map((c) => <li>{c.name}</li>)}
+  </ul>
+  {page.url.prev && <a href={page.url.prev}>Previous</a>}
+  {page.url.next && <a href={page.url.next}>Next</a>}
+</BaseLayout>
