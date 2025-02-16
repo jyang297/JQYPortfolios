@@ -1,0 +1,38 @@
+---
+export const prerender = false;
+
+import BaseLayout from "../../layout/BaseLayout.astro";
+import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+const { slug } = Astro.params;
+
+const post = slug
+  ? await getEntry("posts", slug)
+  : await getCollection("posts");
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+---
+
+<BaseLayout>
+  { !Array.isArray(post) && (
+    <h1>{post.data.title}</h1>
+    <img src={post.data.cover.src} alt={post.data.coverAlt} />
+  )}
+  { Array.isArray(post) && (
+    <h1>Blog Posts</h1>
+  <ul role="list">
+    {
+      post
+        .sort((a, b) => a.data.slug.localeCompare(b.data.slug))
+        .map((post) => (
+          <li>
+            <a href={`/posts/${post.data.slug}`}>{post.data.title}</a>
+          </li>
+        ))
+    }
+  </ul>
+  )}
+</BaseLayout>
