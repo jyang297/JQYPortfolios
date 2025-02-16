@@ -8,5 +8,11 @@ export default defineConfig({
   adapter: node({
     mode: "standalone",
   }),
+  // redirects: {
+  //   "/about": {
+  //     status: 302,
+  //     destination: "/",
+  //   },
+  // },
   // output: "server"
 });
