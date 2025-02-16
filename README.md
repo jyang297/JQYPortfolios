@@ -1,47 +1,20 @@
-# Astro Starter Kit: Minimal
+# Rewrites, redirects, and preventing.
 
-```sh
-npm create astro@latest -- --template minimal
-```
+1. Rewrite `/about` to show `/` instead.
+   
+2. Use a global config to redirect `/about` to `/`.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+3. Prevent `/about` from being built.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+# Creating routes
+1. Add a `/posts` page that shows all link to all posts in your `posts` content collection.
 
-## 🚀 Project Structure
+2. Create a dynamic route for all posts under the `/posts` directory using SSG mode.
 
-Inside of your Astro project, you'll see the following folders and files:
+3. Create a paginated `/posts` route with two posts per page and prev and next buttons showing when available.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+# SSR vs SSG
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1. Enable SSR and prerender the homepage only.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+2. With SSR enabled, prerender every page except for the homepage.
