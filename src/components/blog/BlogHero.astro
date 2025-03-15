@@ -1,0 +1,28 @@
+---
+// components
+import Heading from "../ui/Heading.astro";
+
+// assets
+import katie from "@/assets/avatar.jpeg";
+
+type Props = {
+  currentPage: number;
+};
+
+const { currentPage } = Astro.props;
+---
+
+<section aria-label="Hero Section" class="blog-hero container">
+  <img src={katie.src} alt="Katie Haus" />
+  <div>
+    <Heading tagName="h1" tagSize="h2">
+      My blog
+      <span>Page {currentPage.toString()}</span>
+    </Heading>
+    <p>
+      I like to write about productivity, web development, design, and working
+      with clients. Get a sense of what it’s like to work with me and understand
+      my process.
+    </p>
+  </div>
+</section>

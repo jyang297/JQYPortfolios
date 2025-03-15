@@ -1,5 +1,6 @@
 ---
 import BlogCard from "@/components/blog/BlogCard.astro";
+import BlogHero from "@/components/blog/BlogHero.astro";
 import Pagination from "@/components/blog/Pagination.astro";
 import Layout from "@/layouts/Layout.astro";
 import type { GetStaticPaths } from "astro";
@@ -21,9 +22,10 @@ const { page } = Astro.props;
 ---
 
 <Layout title={`My Blog | Page ${page.currentPage}`}>
+  <BlogHero currentPage={page.currentPage} />
   <div class="container">
     <section aria-label="Blog Pposts" class="grid-wrapper">
-      {page.data.map((post) => <BlogCard post={post} />)}
+      {page.data.map((post) => <BlogCard tagName="h2" post={post} />)}
     </section>
     <Pagination prev={page.url.prev} next={page.url.next} />
   </div>

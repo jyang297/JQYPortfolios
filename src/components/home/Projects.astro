@@ -9,9 +9,10 @@ const projects = await getCollection("projects");
 
 type Props = {
   limit?: number;
+  tagName: "h2" | "h3";
 };
 
-const { limit } = Astro.props;
+const { limit, tagName } = Astro.props;
 ---
 
 <div class="grid-wrapper">
@@ -19,7 +20,9 @@ const { limit } = Astro.props;
     limit
       ? projects
           .slice(0, limit)
-          .map((project) => <ProjectCard project={project} />)
-      : projects.map((project) => <ProjectCard project={project} />)
+          .map((project) => <ProjectCard tagName={tagName} project={project} />)
+      : projects.map((project) => (
+          <ProjectCard tagName={tagName} project={project} />
+        ))
   }
 </div>

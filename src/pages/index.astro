@@ -22,7 +22,7 @@ const posts = await getCollection("blog", ({ data }) => !data.isDraft);
     <Heading tagName="h2" tagSize="h2" id="recent-projects">
       Recent Projects
     </Heading>
-    <Projects limit={3} />
+    <Projects limit={3} tagName="h3" />
   </section>
   <section aria-labelledby="recent-posts" class="container rows">
     <Heading tagName="h2" tagSize="h2" id="recent-posts">
@@ -37,7 +37,7 @@ const posts = await getCollection("blog", ({ data }) => !data.isDraft);
               new Date(a.data.pubDate).getTime()
           )
           .slice(0, 3)
-          .map((post) => <BlogCard post={post} />)
+          .map((post) => <BlogCard tagName="h3" post={post} />)
       }
     </div>
   </section>
