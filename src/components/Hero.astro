@@ -1,0 +1,31 @@
+---
+// asset
+import katie from "@/assets/avatar.jpeg";
+
+// data
+const links = [
+  {
+    href: "/katie-haus-cv.pdf",
+    name: "Download CV",
+  },
+  {
+    href: "#connect",
+    name: "Let’s Connect",
+  },
+];
+---
+
+<section aria-label="Hero section" class="hero">
+  <img src={katie.src} alt="Katie Haus" />
+  <h1>👋 Hi, I’m Katie</h1>
+  <p>I’m a self-taught designer and developer obsessed with quality.</p>
+  <div class="columns">
+    {
+      links.map((l) => (
+        <a href={l.href} class="link">
+          {l.name}
+        </a>
+      ))
+    }
+  </div>
+</section>
