@@ -2,6 +2,7 @@
 // components
 import BaseHead from "@/layouts/BaseHead.astro";
 import Footer from "./Footer.astro";
+import Nav from "./Nav.astro";
 
 // styles
 import "@/styles/global.css";
@@ -11,6 +12,7 @@ import "@/styles/global.css";
 <html lang="en">
   <BaseHead {...Astro.props} />
   <body>
+    <Nav />
     <main>
       <slot />
     </main>
