@@ -1,0 +1,52 @@
+---
+const headingOptions = {
+  h1: "h1",
+  h2: "h2",
+  h3: "h3",
+  h4: "h4",
+  h5: "h5",
+  h6: "h6",
+};
+
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"h1"> {
+  tagName: keyof typeof headingOptions;
+  tagSize: keyof typeof headingOptions;
+}
+
+const { tagName, tagSize, ...rest } = Astro.props;
+const Tag = tagName;
+---
+
+<Tag class:list={["default", headingOptions[tagSize]]} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  .default {
+    display: flex;
+    gap: var(--space-2xs);
+    align-items: baseline;
+    text-wrap: balance;
+    line-height: var(--lh-headings);
+  }
+  .h1 {
+    font-size: var(--fs-2xl);
+  }
+  .h2 {
+    font-size: var(--fs-xl);
+  }
+  .h3 {
+    font-size: var(--fs-lg);
+  }
+  .h4 {
+    font-size: var(--fs-md);
+  }
+  .h5 {
+    font-size: var(--fs-sm);
+  }
+  .h6 {
+    font-size: var(--fs-xs);
+  }
+</style>
