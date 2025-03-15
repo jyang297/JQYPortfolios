@@ -7,6 +7,10 @@ import Hero from "@/components/Hero.astro";
 import Features from "@/components/home/Features.astro";
 import Projects from "@/components/home/Projects.astro";
 import Heading from "@/components/ui/Heading.astro";
+import { getCollection } from "astro:content";
+
+const blog = await getCollection("blog");
+console.log("🚀 ~ blog:", blog);
 ---
 
 <Layout>
