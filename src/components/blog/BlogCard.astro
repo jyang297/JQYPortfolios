@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+// components
+import Heading from "@/ui/Heading.astro";
+import Link from "@/ui/Link.astro";
+import { getEntry } from "astro:content";
+import FormattedDate from "../ui/FormattedDate.astro";
+
+type Props = {
+  post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+
+const { title, slug, image, description, pubDate } = post.data;
+
+const author = await getEntry(post.data.author.collection, post.data.author.id);
+---
+
+<article aria-label={title} class="blog-card">
+  <img src={image.src} width={400} height={225} alt="" />
+  <div class="rows">
+    <Heading tagName="h2" tagSize="h3">{title}</Heading>
+    <div class="columns">
+      <FormattedDate pubDate={pubDate} />
+      {author && <small>by {author.data.name}</small>}
+    </div>
+    <p>{description}</p>
+    <Link href={`/blog/${slug}`}>Read Post</Link>
+  </div>
+</article>

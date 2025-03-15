@@ -8,12 +8,14 @@ import Features from "@/components/home/Features.astro";
 import Projects from "@/components/home/Projects.astro";
 import Heading from "@/components/ui/Heading.astro";
 import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
+import BlogCard from "@/components/blog/BlogCard.astro";
 
-const blog = await getCollection("blog");
-console.log("🚀 ~ blog:", blog);
+const blogEntry = await getEntry("blog", "ai-in-web-development");
 ---
 
 <Layout>
+  <BlogCard post={blogEntry} />
   <Hero />
   <Features />
   <section aria-labelledby="recent-projects" class="container rows">
