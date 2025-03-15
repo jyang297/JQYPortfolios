@@ -1,0 +1,15 @@
+---
+// layout
+import Layout from "@/layouts/Layout.astro";
+
+// components
+import ProjectWrapper from "@/components/home/Projects.astro";
+import Heading from "@/components/ui/Heading.astro";
+---
+
+<Layout title="My Recent Projects">
+  <div class="container rows">
+    <Heading tagName="h1" tagSize="h1">Latest Projects</Heading>
+    <ProjectWrapper />
+  </div>
+</Layout>

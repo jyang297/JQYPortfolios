@@ -3,17 +3,23 @@
 import { getCollection } from "astro:content";
 
 // components
-import Heading from "../ui/Heading.astro";
 import ProjectCard from "../ProjectCard.astro";
 
 const projects = await getCollection("projects");
+
+type Props = {
+  limit?: number;
+};
+
+const { limit } = Astro.props;
 ---
 
-<section aria-labelledby="recent-projects" class="container rows">
-  <Heading tagName="h2" tagSize="h2" id="recent-projects">
-    Recent Projects
-  </Heading>
-  <div class="grid-wrapper">
-    {projects.slice(0, 3).map((project) => <ProjectCard />)}
-  </div>
-</section>
+<div class="grid-wrapper">
+  {
+    limit
+      ? projects
+          .slice(0, limit)
+          .map((project) => <ProjectCard project={project} />)
+      : projects.map((project) => <ProjectCard project={project} />)
+  }
+</div>
