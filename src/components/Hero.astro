@@ -10,25 +10,41 @@ interface Link extends LinkProps {
   name: string;
 }
 
+type Props = {
+  title?: string;
+  content?: string;
+  links?: Link[];
+};
+
 // data
-const links = [
-  {
-    href: "/katie-haus-cv.pdf",
-    name: "Download CV",
-    variant: "secondary",
-  },
-  {
-    href: "#connect",
-    name: "Let’s Connect",
-    variant: "primary",
-  },
-] satisfies Link[];
+const defaultContent = {
+  title: "👋 Hi, I’m Katie",
+  content: "I’m a self-taught designer and developer obsessed with quality.",
+  links: [
+    {
+      href: "/katie-haus-cv.pdf",
+      name: "Download CV",
+      variant: "secondary",
+    },
+    {
+      href: "#connect",
+      name: "Let’s Connect",
+      variant: "primary",
+    },
+  ],
+};
+
+const {
+  title = defaultContent.title,
+  content = defaultContent.content,
+  links = defaultContent.links,
+} = Astro.props;
 ---
 
 <section aria-label="Hero section" class="hero">
   <img src={katie.src} alt="Katie Haus" />
-  <Heading tagName="h1" tagSize="h2">👋 Hi, I’m Katie</Heading>
-  <p>I’m a self-taught designer and developer obsessed with quality.</p>
+  <Heading tagName="h1" tagSize="h2">{title}</Heading>
+  <p>{content}</p>
   <div class="columns">
     {
       links.map((l) => (

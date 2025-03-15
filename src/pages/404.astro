@@ -1,0 +1,26 @@
+---
+// layout
+import Layout from "@/layouts/Layout.astro";
+
+// components
+import Hero from "@/components/Hero.astro";
+---
+
+<Layout title="404 | Page not found">
+  <Hero
+    title="😬 Are you lost?"
+    content="Oops! The page you're looking for seems to have wandered off. Please try again or visit our homepage for more information."
+    links={[
+      {
+        href: "/katie-haus-cv.pdf",
+        name: "Download CV",
+        variant: "secondary",
+      },
+      {
+        href: "/",
+        name: "Go Home",
+        variant: "primary",
+      },
+    ]}
+  />
+</Layout>
