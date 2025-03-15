@@ -1,4 +1,8 @@
 ---
+// imports
+import Link from "@/components/ui/Link.astro";
+
+// data
 const navData = [
   {
     title: "Projects",
@@ -21,7 +25,11 @@ const navData = [
       navData.map((i) => {
         const hasIcon = i.href === "/";
         return (
-          <a href={i.href} class="link" aria-label={hasIcon ? i.title : null}>
+          <Link
+            href={i.href}
+            variant={hasIcon ? "icon" : "ghost"}
+            aria-label={hasIcon ? i.title : null}
+          >
             {hasIcon ? (
               <svg
                 width="35"
@@ -43,7 +51,7 @@ const navData = [
             ) : (
               i.title
             )}
-          </a>
+          </Link>
         );
       })
     }
