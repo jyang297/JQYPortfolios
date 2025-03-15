@@ -1,5 +1,5 @@
 import { file, glob } from "astro/loaders";
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 
 const blog = defineCollection({
   loader: glob({ pattern: "src/content/blog/**/*.md" }),
@@ -11,7 +11,19 @@ const blog = defineCollection({
       image: image(),
       pubDate: z.date(),
       isDraft: z.boolean().optional(),
+      author: reference("authors"),
     }),
+});
+
+const authors = defineCollection({
+  loader: async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await res.json();
+    return data.map((p: any) => ({
+      id: p.name,
+      name: p.name,
+    }));
+  },
 });
 
 const features = defineCollection({
@@ -33,4 +45,4 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = { features, projects, blog };
+export const collections = { features, projects, blog, authors };
