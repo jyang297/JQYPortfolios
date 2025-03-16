@@ -3,11 +3,12 @@
 import katie from "@/assets/avatar.jpeg";
 
 // component
+import ContactForm from "./ContactForm";
 ---
 
 <section aria-label="Connect with Katie" id="connect">
   <div class="form-wrapper">
     <div><img src={katie.src} alt="Katie Haus" /></div>
-    <!-- contact form -->
+    <ContactForm client:visible />
   </div>
 </section>
