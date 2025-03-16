@@ -1,0 +1,21 @@
+---
+// components
+import Heading from "../ui/Heading.astro";
+import Link from "../ui/Link.astro";
+
+// assets
+import katie from "@/assets/avatar.jpeg";
+---
+
+<section aria-label="Connect with Katie" class="blog-bio container">
+  <img src={katie.src} alt="Katie Haus" />
+  <div>
+    <Heading tagName="h2" tagSize="h2">👋 Hey, I'm Katie</Heading>
+    <p>
+      I like to write about productivity, web development, design, and working
+      with clients. Get a sense of what it’s like to work with me and understand
+      my process.
+    </p>
+    <Link href="/#connect">Let’s Connect</Link>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+---
+// layout
+import Layout from "@/layouts/Layout.astro";
+
+// types
+import type { GetStaticPaths } from "astro";
+
+// components
+import AuthorCard from "@/components/blog/AuthorCard.astro";
+import FormattedDate from "@/components/ui/FormattedDate.astro";
+import Heading from "@/components/ui/Heading.astro";
+
+// helpers
+import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blog", ({ data }) => !data.isDraft);
+  return posts.map((post) => ({
+    params: {
+      page: post.data.slug,
+    },
+    props: {
+      post,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+
+const { Content } = await render(post);
+
+const { title, description, pubDate, image } = post.data;
+
+const author = await getEntry(post.data.author.collection, post.data.author.id);
+---
+
+<Layout title={title} description={description}>
+  <section aria-label="Blog metadata" class="blog-metadata">
+    <header>
+      <FormattedDate pubDate={pubDate} />
+      <Heading tagName="h1" tagSize="h2">{title}</Heading>
+      {author && <small>by {author.data.name}</small>}
+      <p>{description}</p>
+    </header>
+    <img src={image.src} alt="" />
+  </section>
+  <section aria-label="Blog content" class="blog-content">
+    <Content />
+  </section>
+  <AuthorCard />
+</Layout>
