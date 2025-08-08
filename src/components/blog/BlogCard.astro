@@ -8,15 +8,15 @@ import { getEntry } from "astro:content";
 import FormattedDate from "../ui/FormattedDate.astro";
 
 type Props = {
-  post: CollectionEntry<"blog">;
+  blog: CollectionEntry<"blog">;
   tagName: "h2" | "h3";
 };
 
-const { post, tagName } = Astro.props;
+const { blog, tagName } = Astro.props;
 
-const { title, slug, image, description, pubDate } = post.data;
+const { title, slug, image, description, pubDate } = blog.data;
 
-const author = await getEntry(post.data.author.collection, post.data.author.id);
+const author = await getEntry(blog.data.author.collection, blog.data.author.id);
 ---
 
 <article aria-label={title} class="blog-card">
@@ -28,6 +28,6 @@ const author = await getEntry(post.data.author.collection, post.data.author.id);
       {author && <small>by {author.data.name}</small>}
     </div>
     <p>{description}</p>
-    <Link href={`/blog/${slug}`}>Read Post</Link>
+    <Link href={`/blog/${slug}`}>Read blog</Link>
   </div>
 </article>

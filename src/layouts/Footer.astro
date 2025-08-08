@@ -1,14 +1,12 @@
-<footer>
+<footer class="bg-gray-100 text-sm text-gray-600 py-6 text-center border-t mt-12">
   <p>
-    &copy; <span id="copyright">{new Date().getFullYear()}</span> Katie Haus. All
-    rights reserved. I'm a skilled web developer passionate about creating innovative
-    and user-friendly websites.
+    &copy; <span id="copyright-year"></span> Jiaqi Yang.
+    All rights reserved. 
+    Building intelligent and user-centric applications.
   </p>
 </footer>
 
-<script>
-  const copyrightSpan = document.querySelector(
-    "#copyright"
-  ) as unknown as HTMLSpanElement;
-  copyrightSpan.textContent = new Date().getFullYear().toString();
+<script type="module">
+  const span = document.querySelector("#copyright-year") as HTMLSpanElement;
+  span.textContent = new Date().getFullYear().toString();
 </script>

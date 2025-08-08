@@ -1,6 +1,6 @@
 ---
 // asset
-import katie from "@/assets/avatar.jpeg";
+import Mine from "@/assets/avatar.jpeg";
 
 // components
 import Heading from "./ui/Heading.astro";
@@ -18,17 +18,17 @@ type Props = {
 
 // data
 const defaultContent = {
-  title: "👋 Hi, I’m Katie",
-  content: "I’m a self-taught designer and developer obsessed with quality.",
+  title: "Hi, I'm Jiaqi Yang",
+  content: "Machine Learning Engineer and AI Developer.",
   links: [
     {
-      href: "/katie-haus-cv.pdf",
+      href: "/assets/cv_pdf_template.pdf",
       name: "Download CV",
       variant: "secondary",
     },
     {
       href: "#connect",
-      name: "Let’s Connect",
+      name: "Let's Connect",
       variant: "primary",
     },
   ],
@@ -42,9 +42,9 @@ const {
 ---
 
 <section aria-label="Hero section" class="hero">
-  <img src={katie.src} alt="Katie Haus" />
+  <img src={Mine.src} alt="Mine" />
   <Heading tagName="h1" tagSize="h2">{title}</Heading>
-  <p>{content}</p>
+  <p class="hero-subtitle">{content}</p>
   <div class="columns">
     {
       links.map((l) => (
@@ -55,3 +55,13 @@ const {
     }
   </div>
 </section>
+
+<style>
+  .hero-subtitle {
+    white-space: nowrap;
+    /* Or alternatively: */
+    /* min-width: fit-content; */
+    /* Or: */
+    /* width: max-content; */
+  }
+</style>

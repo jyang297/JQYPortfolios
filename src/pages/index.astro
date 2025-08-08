@@ -1,46 +1,79 @@
 ---
-// layout
 import Layout from "@/layouts/Layout.astro";
-
-// helpers
 import { getCollection } from "astro:content";
 
-// components
+// 组件
 import BlogCard from "@/components/blog/BlogCard.astro";
-import Hero from "@/components/Hero.astro";
-import Features from "@/components/home/Features.astro";
-import Projects from "@/components/home/Projects.astro";
 import Heading from "@/components/ui/Heading.astro";
-import Connect from "@/components/Connect.astro";
+import Hero from "@/components/Hero.astro";
 
-const posts = await getCollection("blog", ({ data }) => !data.isDraft);
+import Projects from "@/components/home/Projects.astro";
+
+// 获取博客列表（如有）
+const blog = await getCollection("blog", ({ data }) => !data.isDraft);
 ---
 
 <Layout>
-  <Hero />
-  <Features />
+  <!-- Hero：自我介绍 -->
+  <Hero>
+
+  </Hero>
+  <!-- Technology Stack -->
+  <section class="container py-16">
+    <Heading tagName="h2" tagSize="h2">What I Do</Heading>
+    <ul class="grid md:grid-cols-3 gap-6 mt-6 text-gray-700">
+      <li>🧠 Machine Learning & Deep Learning</li>
+      <li>⚙️ Model Deployment & MLOps</li>
+      <li>📊 Data Analysis & Visualization</li>
+    </ul>
+  </section>
+
+  <!-- Recent Projects -->
   <section aria-labelledby="recent-projects" class="container rows">
     <Heading tagName="h2" tagSize="h2" id="recent-projects">
-      Recent Projects
+      Featured Projects
     </Heading>
     <Projects limit={3} tagName="h3" />
   </section>
-  <Connect />
-  <section aria-labelledby="recent-posts" class="container rows">
-    <Heading tagName="h2" tagSize="h2" id="recent-posts">
-      Latest Blog Posts
+
+<section id="connect" class="connect-section-shine" aria-label="Contact Section">
+  <Heading tagName="h2" tagSize="h2">Let's Connect</Heading>
+  <p class="text-gray-600 mb-4">
+    Feel free to reach out via email or connect with me on GitHub/LinkedIn.
+  </p>
+  <ul class="flex flex-row justify-center items-center gap-6 mt-4">
+    <li>
+      <a href="mailto:jyang297@uottawa.ca" class="text-blue-600 underline" aria-label="Send Email">📧 Email</a>
+    </li>
+    <li>
+      <a href="https://github.com/jyang297" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline" aria-label="GitHub Profile">🐙 GitHub</a>
+    </li>
+    <li>
+      <a href="https://www.linkedin.com/in/jiaqi-yang-b3014424b/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline" aria-label="LinkedIn Profile">💼 LinkedIn</a>
+    </li>
+  </ul>
+</section>
+
+
+
+  <!-- blog section -->
+  <section aria-labelledby="recent-blog" class="container rows">
+    <Heading tagName="h2" tagSize="h2" id="recent-blog">
+      Latest blog blog
     </Heading>
-    <div class="grid-wrapper">
-      {
-        posts
-          .sort(
-            (a, b) =>
-              new Date(b.data.pubDate).getTime() -
-              new Date(a.data.pubDate).getTime()
-          )
-          .slice(0, 3)
-          .map((post) => <BlogCard tagName="h3" post={post} />)
-      }
-    </div>
+    {
+      blog.length > 0 ? (
+        <div class="grid-wrapper">
+          {
+            blog
+              .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+              .slice(0, 3)
+              .map((blog) => <BlogCard tagName="h3" blog={blog} />)
+          }
+        </div>
+      ) : (
+        <p class="text-gray-500 mt-4">No blog blog yet — coming soon!</p>
+      )
+    }
   </section>
 </Layout>
