@@ -1,5 +1,6 @@
 /* 🚨 WARNING: I’ve optimized this CSS to minimize writing CSS in this project since we’re focused on Astro. That means I've made some decisions that are not best practices (some, just downright poor if it was a normal project), so use at your own risk 😬 🚨*/
 @import "tailwindcss";
+@reference
 /* basic reset */
 *,
 :after,
@@ -711,4 +712,53 @@ time {
 			}
 		}
 	}
+}
+/* src/styles/global.css */
+
+.prose-custom h1 {
+  @apply text-4xl font-bold text-gray-900 mb-6 mt-8 first:mt-0;
+}
+
+.prose-custom h2 {
+  @apply text-2xl font-bold text-gray-800 mb-4 mt-8 border-b border-gray-200 pb-2;
+}
+
+.prose-custom h3 {
+  @apply text-xl font-semibold text-gray-800 mb-3 mt-6;
+}
+
+.prose-custom p {
+  @apply text-gray-700 leading-relaxed mb-4;
+}
+
+.prose-custom ul {
+  @apply list-disc list-inside mb-4 space-y-2;
+}
+
+.prose-custom ol {
+  @apply list-decimal list-inside mb-4 space-y-2;
+}
+
+.prose-custom li {
+  @apply text-gray-700 leading-relaxed;
+}
+
+.prose-custom strong {
+  @apply font-bold text-gray-900;
+}
+
+.prose-custom em {
+  @apply italic;
+}
+
+.prose-custom code {
+  @apply bg-gray-100 text-pink-600 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.prose-custom blockquote {
+  @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 my-4 bg-gray-50 py-2;
+}
+
+.prose-custom a {
+  @apply text-blue-600 hover:text-blue-800 hover:underline transition-colors;
 }

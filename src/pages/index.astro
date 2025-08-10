@@ -19,13 +19,89 @@ const blog = await getCollection("blog", ({ data }) => !data.isDraft);
 
   </Hero>
   <!-- Technology Stack -->
+  <!-- What I Do Section -->
   <section class="container py-16">
-    <Heading tagName="h2" tagSize="h2">What I Do</Heading>
-    <ul class="grid md:grid-cols-3 gap-6 mt-6 text-gray-700">
-      <li>🧠 Machine Learning & Deep Learning</li>
-      <li>⚙️ Model Deployment & MLOps</li>
-      <li>📊 Data Analysis & Visualization</li>
-    </ul>
+    <Heading tagName="h2" tagSize="h2">My Techstack</Heading>
+    
+    <!-- 专业领域 -->
+    <div class="mt-8">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">What I do</h3>
+      <ul class="grid md:grid-cols-3 gap-6 text-gray-700">
+        <li class="flex items-center gap-2">
+          <span class="text-2xl">🧠</span>
+          <span>Machine Learning & Deep Learning</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-2xl">⚙️</span>
+          <span>Model Deployment & MLOps</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-2xl">📊</span>
+          <span>Data Analysis & Visualization</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 技术栈 -->
+    <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- 编程语言 -->
+      <div class="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="text-2xl">💻</span>
+          Languages
+        </h3>
+        <ul class="space-y-2 text-gray-600">
+          <li>Python</li>
+          <li>SQL</li>
+        </ul>
+      </div>
+
+      <!-- 框架与库 -->
+      <div class="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="text-2xl">🔧</span>
+          Structure
+        </h3>
+        <ul class="space-y-2 text-gray-600">
+          <li>PyTorch</li>
+          <li>Llamaindex</li>
+          <li>scikit-learn</li>
+          <li>FastAPI</li>
+          <li>LangChain</li>
+        </ul>
+      </div>
+
+      <!-- Tools -->
+      <div class="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="text-2xl">🛠️</span>
+          Tools & DevOps
+        </h3>
+        <ul class="space-y-2 text-gray-600">
+          <li>Docker</li>
+          <li>AWS/GCP</li>
+          <li>Git</li>
+          <li>MLflow</li>
+          <li>Jupyter</li>
+        </ul>
+      </div>
+
+      <!-- 数据库与搜索 -->
+      <div class="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <span class="text-2xl">🗄️</span>
+          Databases & Search
+        </h3>
+        <ul class="space-y-2 text-gray-600">
+          <li>PostgreSQL</li>
+          <li>FAISS</li>
+          <li>Elasticsearch</li>
+          <li>OpenSearch</li>
+          <li>Milvus</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- Recent Projects -->
@@ -57,7 +133,7 @@ const blog = await getCollection("blog", ({ data }) => !data.isDraft);
 
 
   <!-- blog section -->
-  <section aria-labelledby="recent-blog" class="container rows">
+  <!-- <section aria-labelledby="recent-blog" class="container rows">
     <Heading tagName="h2" tagSize="h2" id="recent-blog">
       Latest blog blog
     </Heading>
@@ -75,5 +151,5 @@ const blog = await getCollection("blog", ({ data }) => !data.isDraft);
         <p class="text-gray-500 mt-4">No blog blog yet — coming soon!</p>
       )
     }
-  </section>
+  </section> -->
 </Layout>

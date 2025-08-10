@@ -6,24 +6,9 @@
 - title: Responsive Navigation
   id: 2
   image: "@/assets/project-thumbnails/responsive-navigation.jpg"
-  href: "https://codinginpublic.dev/projects/responsive-navigation/"
+  href: https://codinginpublic.dev/projects/responsive-navigation/
 
-- title: React Router Budget
+- title: first_project_test
   id: 3
-  image: "@/assets/project-thumbnails/react-router-budget-app.jpg"
-  href: "https://codinginpublic.dev/projects/react-router-budget-app/"
-
-- title: Tailwind Landing Page
-  id: 4
-  image: "@/assets/project-thumbnails/tailwind-landing-page.jpg"
-  href: "https://codinginpublic.dev/projects/homesmart-landing-page/"
-
-- title: Tic Tac Toe
-  id: 5
-  image: "@/assets/project-thumbnails/tic-tac-toe.jpg"
-  href: https://codinginpublic.dev/projects/tic-tac-toe/
-
-- title: React ToDo App
-  id: 6
-  image: "@/assets/project-thumbnails/react-todo-app-with-local-storage.jpg"
-  href: https://codinginpublic.dev/projects/react-todo-app-with-local-storage/
+  image: "@/assets/project-thumbnails/first-project-test.jpg"
+  href: /myProjects/first-project-test

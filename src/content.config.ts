@@ -1,19 +1,19 @@
 import { file, glob } from "astro/loaders";
 import { defineCollection, reference, z } from "astro:content";
 
-const blog = defineCollection({
-  loader: glob({ pattern: "src/content/blog/**/*.md" }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string().max(65),
-      slug: z.string(),
-      description: z.string().max(160),
-      image: image(),
-      pubDate: z.date(),
-      isDraft: z.boolean().optional(),
-      author: reference("authors"),
-    }),
-});
+// const blog = defineCollection({
+//   loader: glob({ pattern: "src/content/blog/**/*.md" }),
+//   schema: ({ image }) =>
+//     z.object({
+//       title: z.string().max(65),
+//       slug: z.string(),
+//       description: z.string().max(160),
+//       image: image(),
+//       pubDate: z.date(),
+//       isDraft: z.boolean().optional(),
+//       author: reference("authors"),
+//     }),
+// });
 
 const authors = defineCollection({
   loader: async () => {
@@ -40,9 +40,32 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string().max(65),
-      href: z.string().url(),
+      href: z.string(),
       image: image(),
     }),
 });
 
-export const collections = { features, projects, blog, authors };
+
+// New: Project content collection (Markdown files)
+const projectContents = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/projectContents" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    date: z.date().optional(),
+    technologies: z.array(z.string()).optional(),
+    status: z.enum(['Planning', 'In Progress', 'Completed', 'Beta', 'Maintenance']).optional(),
+    github: z.string().url().optional(),
+    demo: z.string().url().optional(),
+    featuredImage: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = {
+  authors,
+  features,
+  projects,
+  projectContents,
+};
+
