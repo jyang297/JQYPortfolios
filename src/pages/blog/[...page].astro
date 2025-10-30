@@ -1,10 +1,8 @@
 ---
-import BlogCard from "@/components/blog/BlogCard.astro";
-import BlogHero from "@/components/blog/BlogHero.astro";
-import Pagination from "@/components/blog/Pagination.astro";
 import Layout from "@/layouts/Layout.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
+
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("blog", ({ data }) => !data.isDraft);
   return paginate(
@@ -13,7 +11,7 @@ export const getStaticPaths = (async ({ paginate }) => {
         new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
     ),
     {
-      pageSize: 3,
+      pageSize: 6,
     }
   );
 }) satisfies GetStaticPaths;
@@ -21,12 +19,76 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<Layout title={`My Blog | Page ${page.currentPage}`}>
-  <BlogHero currentPage={page.currentPage} />
-  <div class="container">
-    <section aria-label="Blog Pposts" class="grid-wrapper">
-      {page.data.map((post) => <BlogCard tagName="h2" post={post} />)}
-    </section>
-    <Pagination prev={page.url.prev} next={page.url.next} />
+<Layout title={`Blog - Jiaqi Yang ${page.currentPage > 1 ? `| Page ${page.currentPage}` : ''}`}>
+  <div class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="margin-bottom: 1rem;">Blog</h1>
+        <p style="font-size: 1.125rem; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">
+          Thoughts on machine learning, AI engineering, and tech
+        </p>
+      </div>
+
+      {page.data.length === 0 ? (
+        <div style="text-align: center; padding: 4rem 0;">
+          <p style="color: var(--color-text-secondary);">No blog posts available yet. Check back soon!</p>
+        </div>
+      ) : (
+        <>
+          <div class="grid grid-3">
+            {page.data.map((post) => (
+              <a href={`/blog/${post.slug}`} class="card" style="text-decoration: none;">
+                {post.data.image && (
+                  <img src={post.data.image.src} alt={post.data.title} class="card-image" />
+                )}
+                <div class="card-content">
+                  <div class="blog-meta">
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  </div>
+                  <h2 class="card-title">{post.data.title}</h2>
+                  <p class="card-description">{post.data.description}</p>
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                      {post.data.tags.slice(0, 3).map((tag: string) => (
+                        <span class="tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <!-- Pagination -->
+          {(page.url.prev || page.url.next) && (
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 3rem;">
+              {page.url.prev ? (
+                <a href={page.url.prev} class="btn btn-secondary">
+                  ← Previous
+                </a>
+              ) : (
+                <button class="btn btn-secondary" disabled style="opacity: 0.5; cursor: not-allowed;">
+                  ← Previous
+                </button>
+              )}
+              <span style="display: flex; align-items: center; color: var(--color-text-secondary);">
+                Page {page.currentPage} of {page.lastPage}
+              </span>
+              {page.url.next ? (
+                <a href={page.url.next} class="btn btn-secondary">
+                  Next →
+                </a>
+              ) : (
+                <button class="btn btn-secondary" disabled style="opacity: 0.5; cursor: not-allowed;">
+                  Next →
+                </button>
+              )}
+            </div>
+          )}
+        </>
+      )}
+    </div>
   </div>
 </Layout>

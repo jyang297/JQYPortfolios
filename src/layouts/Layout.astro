@@ -12,6 +12,12 @@ import "@/styles/global.css";
 <html lang="en">
   <BaseHead {...Astro.props} />
   <body>
+    <!-- Prevent theme flash -->
+    <script is:inline>
+      const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    </script>
+
     <Nav />
     <main>
       <slot />

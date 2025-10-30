@@ -1,8 +1,7 @@
 ---
 title: "Exploring the Role of APIs in Modern Web Development"
-slug: "apis-in-web-development"
 description: "A comprehensive look at how APIs are integral to modern web development, enabling seamless integration and functionality across diverse applications."
-image: ./images/apis-in-web-development.jpg
+image: "@/assets/blog/apis-in-web-development.jpg"
 pubDate: 2025-01-05
 isDraft: false
 author: "Patricia Lebsack"

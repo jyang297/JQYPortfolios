@@ -1,8 +1,6 @@
 ---
-// imports
-import Link from "@/components/ui/Link.astro";
+import ThemeToggle from "@/components/ThemeToggle";
 
-// data
 const navData = [
   {
     title: "Home",
@@ -12,40 +10,41 @@ const navData = [
     title: "Projects",
     href: "/projects",
   },
-
-  // {
-  //   title: "Blog",
-  //   href: "/blog",
-  // },
+  {
+    title: "Blog",
+    href: "/blog",
+  },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav>
-  <ul role="list">
-    <!-- 左侧：导航链接 -->
-    <div class="nav-links">
-      {
-        navData.map((i) => {
-          const hasIcon = i.href === "/";
-          return (
-            <Link
-              href={i.href}
-              variant={hasIcon ? "icon" : "ghost"}
-              aria-label={hasIcon ? i.title : null}
-            >
-              {hasIcon ? (
-                <img src="/favicon.svg" alt="Logo" width="55" height="55" />
-              ) : (
-                i.title
-              )}
-            </Link>
-          );
-        })
-      }
-    </div>
-    
-    <!-- 右侧：像素艺术兔子 -->
-    <div class="pixel-rabbit-simple" title="Pixel Rabbit! "></div>
-    
-  </ul>
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      Jiaqi Yang
+    </a>
+    <ul class="nav-links">
+      {navData.slice(1).map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class={currentPath === item.href || currentPath.startsWith(item.href + '/') ? 'active' : ''}
+          >
+            {item.title}
+          </a>
+        </li>
+      ))}
+      <li>
+        <ThemeToggle client:load />
+      </li>
+    </ul>
+  </div>
 </nav>
+
+<style>
+  .nav-links a.active {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+</style>

@@ -1,8 +1,7 @@
 ---
 title: "The Impact of Serverless Architecture on Web Development"
-slug: "serverless-architecture-web-development"
 description: "An exploration of serverless architecture, its benefits, and how it is reshaping the landscape of web development by simplifying deployment and scaling."
-image: ./images/serverless-architecture-web-development.jpg
+image: "@/assets/blog/serverless-architecture-web-development.jpg"
 pubDate: 2025-01-01
 isDraft: false
 author: "Patricia Lebsack"

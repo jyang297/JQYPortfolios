@@ -1,8 +1,7 @@
 ---
 title: "The Future of Web Development: Embracing WebAssembly"
-slug: "webassembly-future"
 description: "An exploration of WebAssembly (Wasm), its capabilities, and how it is revolutionizing web development by enabling high-performance applications in the browser."
-image: ./images/webassembly-future.jpg
+image: "@/assets/blog/webassembly-future.jpg"
 pubDate: 2025-01-30
 isDraft: false
 author: "Patricia Lebsack"

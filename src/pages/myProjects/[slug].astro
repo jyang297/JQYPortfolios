@@ -1,101 +1,107 @@
 ---
-// src/pages/myProjects/[slug].astro
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Heading from "@/components/ui/Heading.astro";
 
 export async function getStaticPaths() {
-  console.log("🔍 Starting getStaticPaths...");
-  
-  try {
-    const projectContents = await getCollection("projectContents");
-    console.log("📄 Project contents found:", projectContents.length);
-    
-    if (projectContents.length === 0) {
-      console.log("⚠️ No project contents found");
-      return [];
-    }
-    
-    // Log each project content in detail
-    projectContents.forEach((project, index) => {
-      console.log(`📄 Project ${index + 1}:`);
-      console.log(`   - ID: ${project.id}`);
-      console.log(`   - Slug: ${project.slug}`);
-      console.log(`   - Title: ${project.data?.title || 'No title'}`);
-      console.log(`   - Has render method: ${typeof project.render === 'function'}`);
-    });
-    
-    const paths = projectContents.map((project) => {
-      const slug = project.slug || project.id;
-      console.log(`🔗 Creating path for slug: "${slug}"`);
-      return {
-        params: { slug },
-        props: { project }, // Pass the whole project object - it has .render() method
-      };
-    });
-    
-    console.log("✅ Final generated paths:", paths.map(p => p.params.slug));
-    return paths;
-    
-  } catch (error) {
-    console.error("❌ Unexpected error in getStaticPaths:", error);
-    return [];
-  }
+  const projectContents = await getCollection("projectContents");
+
+  return projectContents.map((project) => ({
+    params: { slug: project.slug || project.id },
+    props: { project },
+  }));
 }
 
 const { project } = Astro.props;
 
-// Add error checking
 if (!project) {
   throw new Error("No project data received");
 }
 
-// Check if we have pre-rendered HTML (Astro v5) or need to render (older versions)
-let htmlContent;
+// Handle content rendering
+let Content;
 if (project.rendered?.html) {
-  // Astro v5+ - content is pre-rendered
-  htmlContent = project.rendered.html;
-  console.log("✅ Using pre-rendered HTML content");
+  Content = null; // Will use set:html
 } else if (typeof project.render === 'function') {
-  // Older Astro versions - need to render
-  const { Content } = await project.render();
-  htmlContent = Content;
-  console.log("✅ Using rendered content");
-} else {
-  console.error("❌ Project object:", project);
-  throw new Error("No content available - neither pre-rendered HTML nor render method found");
+  const rendered = await project.render();
+  Content = rendered.Content;
 }
+
+const { title, description, date, technologies, status, github, demo, image } = project.data;
 ---
 
-<Layout title={project.data.title}>
-  <article class="container py-16 max-w-4xl mx-auto">
-    <header class="mb-12">
-      <Heading tagName="h1" tagSize="h1" class="mb-4">
-        {project.data.title}
-      </Heading>
-      
-      {project.data.description && (
-        <p class="text-lg text-gray-700 leading-relaxed mb-6">
-          {project.data.description}
-        </p>
-      )}
-    </header>
+<Layout title={title}>
+  <article>
+    <!-- Hero Section -->
+    <div style="background-color: var(--color-bg-secondary); padding: 4rem 0;">
+      <div class="container" style="max-width: 900px;">
+        <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          {status && (
+            <span class={`tag ${status === 'Completed' ? 'tag-accent' : ''}`}>
+              {status}
+            </span>
+          )}
+          {date && (
+            <span style="color: var(--color-text-secondary); font-size: 0.875rem;">
+              {new Date(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            </span>
+          )}
+        </div>
+        <h1 style="margin-bottom: 1rem;">{title}</h1>
+        {description && (
+          <p style="font-size: 1.125rem; color: var(--color-text-secondary); margin-bottom: 2rem;">
+            {description}
+          </p>
+        )}
+        {technologies && technologies.length > 0 && (
+          <div class="project-tech" style="margin-bottom: 2rem;">
+            {technologies.map((tech: string) => (
+              <span class="tag tag-accent">{tech}</span>
+            ))}
+          </div>
+        )}
+        {(github || demo) && (
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            {github && (
+              <a href={github} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                View on GitHub
+              </a>
+            )}
+            {demo && (
+              <a href={demo} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                Live Demo
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
 
-    <div class="prose prose-lg prose-slate max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h1:text-4xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 prose-p:leading-relaxed prose-li:text-gray-700 prose-strong:text-gray-900 prose-code:text-pink-600 prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:pl-4 prose-blockquote:italic prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+    <!-- Featured Image -->
+    {image && (
+      <div class="container" style="max-width: 900px; margin-top: 3rem;">
+        <img
+          src={image}
+          alt={title}
+          style="width: 100%; border-radius: 0.75rem; box-shadow: var(--shadow-lg);"
+        />
+      </div>
+    )}
+
+    <!-- Content -->
+    <div class="blog-content prose">
       {project.rendered?.html ? (
         <div set:html={project.rendered.html} />
-      ) : (
+      ) : Content ? (
         <Content />
+      ) : (
+        <p style="color: var(--color-text-secondary);">No content available for this project.</p>
       )}
     </div>
 
-    <div class="mt-16 pt-8 border-t border-gray-200">
-      <a 
-        href="/#featured-projects" 
-        class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
-      >
-        <span>←</span>
-        Back to Projects
+    <!-- Back to Projects -->
+    <div class="container" style="max-width: 900px; margin-top: 3rem; margin-bottom: 4rem;">
+      <a href="/projects" class="btn btn-ghost" style="padding-left: 0;">
+        ← Back to Projects
       </a>
     </div>
   </article>

@@ -1,8 +1,7 @@
 ---
 title: "The Rise of Jamstack"
-slug: "jamstack-web-development"
 description: "An in-depth exploration of Jamstack architecture, its benefits, and how it's changing the landscape of web development for faster, more secure websites."
-image: ./images/jamstack-web-development.jpg
+image: "@/assets/blog/jamstack-web-development.jpg"
 pubDate: 2025-02-28
 isDraft: false
 author: "Chelsey Dietrich"

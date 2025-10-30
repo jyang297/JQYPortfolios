@@ -1,8 +1,7 @@
 ---
 title: "Harnessing AI for Web Development"
-slug: "ai-in-web-development"
 description: "An exploration of how Artificial Intelligence (AI) is revolutionizing web development, enhancing user experiences, and streamlining design processes."
-image: ./images/ai-in-web-development.jpg
+image: "@/assets/blog/ai-in-web-development.jpg"
 pubDate: 2025-01-15
 isDraft: false
 author: "Kurtis Weissnat"

@@ -1,8 +1,7 @@
 ---
 title: "Exploring the Power of Progressive Web Apps"
-slug: "progressive-web-apps"
 description: "An in-depth look at Progressive Web Apps (PWAs), their benefits, and how they are transforming the web development landscape."
-image: ./images/progressive-web-apps.jpg
+image: "@/assets/blog/progressive-web-apps.jpg"
 pubDate: 2025-03-15
 isDraft: false
 author: "Chelsey Dietrich"

@@ -5,6 +5,8 @@ import { getCollection } from "astro:content";
 // components
 import ProjectCard from "../ProjectCard.astro";
 
+// Load featured projects from projects.yaml
+// For full project pages, see projectContents collection
 const projects = await getCollection("projects");
 
 type Props = {

@@ -1,8 +1,7 @@
 ---
 title: "The Evolution of Frontend Frameworks"
-slug: "frontend-frameworks-evolution"
 description: "An overview of the evolution of frontend frameworks, their benefits, and guidance on selecting the best framework for your web development projects."
-image: ./images/frontend-frameworks-evolution.jpg
+image: "@/assets/blog/frontend-frameworks-evolution.jpg"
 pubDate: 2025-03-02
 isDraft: false
 author: "Kurtis Weissnat"

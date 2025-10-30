@@ -1,15 +1,73 @@
 ---
-// layout
 import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-// components
-import ProjectWrapper from "@/components/home/Projects.astro";
-import Heading from "@/components/ui/Heading.astro";
+// Get all non-draft projects
+const projectContents = await getCollection("projectContents", ({ data }) => !data.draft);
+
+// Sort by date (newest first)
+const sortedProjects = projectContents.sort((a, b) => {
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
 ---
 
-<Layout title="Jackie's Projects">
-  <div class="container rows">
-    <Heading tagName="h1" tagSize="h1">Latest Projects</Heading>
-    <ProjectWrapper tagName="h2" />
+<Layout title="Projects - Jiaqi Yang">
+  <div class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="margin-bottom: 1rem;">My Projects</h1>
+        <p style="font-size: 1.125rem; color: var(--color-text-secondary); max-width: 600px; margin: 0 auto;">
+          A collection of my machine learning and AI engineering projects
+        </p>
+      </div>
+
+      {sortedProjects.length === 0 ? (
+        <div style="text-align: center; padding: 4rem 0;">
+          <p style="color: var(--color-text-secondary);">No projects available yet. Check back soon!</p>
+        </div>
+      ) : (
+        <div class="grid grid-2">
+          {sortedProjects.map((project) => (
+            <a href={`/myProjects/${project.slug}`} class="card" style="text-decoration: none;">
+              {project.data.image && (
+                <img src={project.data.image} alt={project.data.title} class="card-image" style="height: 240px;" />
+              )}
+              <div class="card-content">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                  <h2 class="card-title" style="margin: 0;">{project.data.title}</h2>
+                  {project.data.status && (
+                    <span class={`tag ${project.data.status === 'Completed' ? 'tag-accent' : ''}`} style="margin-left: 0.5rem; white-space: nowrap;">
+                      {project.data.status}
+                    </span>
+                  )}
+                </div>
+                <p class="card-description">{project.data.description}</p>
+                {project.data.technologies && (
+                  <div class="project-tech">
+                    {project.data.technologies.slice(0, 5).map((tech: string) => (
+                      <span class="tag">{tech}</span>
+                    ))}
+                  </div>
+                )}
+                {(project.data.github || project.data.demo) && (
+                  <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                    {project.data.github && (
+                      <span style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                        🔗 GitHub
+                      </span>
+                    )}
+                    {project.data.demo && (
+                      <span style="font-size: 0.875rem; color: var(--color-text-secondary);">
+                        🚀 Live Demo
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
   </div>
 </Layout>

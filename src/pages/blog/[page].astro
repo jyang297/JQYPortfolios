@@ -1,25 +1,13 @@
 ---
-// layout
 import Layout from "@/layouts/Layout.astro";
-
-// types
 import type { GetStaticPaths } from "astro";
-
-// components
-import AuthorCard from "@/components/blog/AuthorCard.astro";
-import FormattedDate from "@/components/ui/FormattedDate.astro";
-import Heading from "@/components/ui/Heading.astro";
-
-// helpers
-import { getEntry } from "astro:content";
-import { getCollection } from "astro:content";
-import { render } from "astro:content";
+import { getEntry, getCollection, render } from "astro:content";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog", ({ data }) => !data.isDraft);
   return posts.map((post) => ({
     params: {
-      page: post.data.slug,
+      page: post.slug,
     },
     props: {
       post,
@@ -28,26 +16,74 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
-
 const { Content } = await render(post);
-
 const { title, description, pubDate, image } = post.data;
 
-const author = await getEntry(post.data.author.collection, post.data.author.id);
+// Handle author
+let author;
+if (post.data.author && typeof post.data.author === 'object') {
+  author = await getEntry(post.data.author.collection, post.data.author.id);
+} else if (typeof post.data.author === 'string') {
+  author = { data: { name: post.data.author } };
+}
 ---
 
 <Layout title={title} description={description}>
-  <section aria-label="Blog metadata" class="blog-metadata">
-    <header>
-      <FormattedDate pubDate={pubDate} />
-      <Heading tagName="h1" tagSize="h2">{title}</Heading>
-      {author && <small>by {author.data.name}</small>}
-      <p>{description}</p>
-    </header>
-    <img src={image.src} alt="" />
-  </section>
-  <section aria-label="Blog content" class="blog-content">
-    <Content />
-  </section>
-  <AuthorCard />
+  <article>
+    <!-- Hero Section -->
+    <div style="background-color: var(--color-bg-secondary); padding: 4rem 0;">
+      <div class="container" style="max-width: 768px;">
+        <div class="blog-meta" style="margin-bottom: 1rem;">
+          <time datetime={pubDate.toISOString()}>
+            {pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          </time>
+          {author && (
+            <>
+              <span style="color: var(--color-text-secondary);">•</span>
+              <span style="color: var(--color-text-secondary);">by {author.data.name}</span>
+            </>
+          )}
+        </div>
+        <h1 style="margin-bottom: 1rem;">{title}</h1>
+        <p style="font-size: 1.125rem; color: var(--color-text-secondary);">
+          {description}
+        </p>
+      </div>
+    </div>
+
+    <!-- Featured Image -->
+    {image && (
+      <div class="container" style="max-width: 768px; margin-top: 3rem;">
+        <img
+          src={image.src}
+          alt={title}
+          style="width: 100%; border-radius: 0.75rem; box-shadow: var(--shadow-lg);"
+        />
+      </div>
+    )}
+
+    <!-- Content -->
+    <div class="blog-content prose">
+      <Content />
+    </div>
+
+    <!-- Tags -->
+    {post.data.tags && post.data.tags.length > 0 && (
+      <div class="container" style="max-width: 768px; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+          <span style="font-weight: 600; color: var(--color-text-secondary); font-size: 0.875rem;">Tags:</span>
+          {post.data.tags.map((tag: string) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Back to Blog -->
+    <div class="container" style="max-width: 768px; margin-top: 3rem; margin-bottom: 4rem;">
+      <a href="/blog" class="btn btn-ghost" style="padding-left: 0;">
+        ← Back to Blog
+      </a>
+    </div>
+  </article>
 </Layout>

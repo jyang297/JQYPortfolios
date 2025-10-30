@@ -8,19 +8,32 @@ import { getEntry } from "astro:content";
 import FormattedDate from "../ui/FormattedDate.astro";
 
 type Props = {
-  blog: CollectionEntry<"blog">;
+  blog?: CollectionEntry<"blog">; // Support old 'blog' prop name
+  post?: CollectionEntry<"blog">; // Support new 'post' prop name
   tagName: "h2" | "h3";
 };
 
-const { blog, tagName } = Astro.props;
+const { blog, post, tagName } = Astro.props;
+const entry = blog || post; // Support either prop name
 
-const { title, slug, image, description, pubDate } = blog.data;
+if (!entry) {
+  throw new Error("BlogCard requires either 'blog' or 'post' prop");
+}
 
-const author = await getEntry(blog.data.author.collection, blog.data.author.id);
+const { title, image, description, pubDate } = entry.data;
+const slug = entry.slug; // slug is auto-generated from filename
+
+// Handle author - can be string or reference
+let author;
+if (entry.data.author && typeof entry.data.author === 'object') {
+  author = await getEntry(entry.data.author.collection, entry.data.author.id);
+} else if (typeof entry.data.author === 'string') {
+  author = { data: { name: entry.data.author } };
+}
 ---
 
 <article aria-label={title} class="blog-card">
-  <img src={image.src} width={400} height={225} alt="" />
+  {image && <img src={image} width={400} height={225} alt="" />}
   <div class="rows">
     <Heading tagName={tagName} tagSize="h3">{title}</Heading>
     <div class="columns">
