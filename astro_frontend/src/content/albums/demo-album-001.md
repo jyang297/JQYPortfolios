@@ -8,6 +8,6 @@ draft: false
 
 This is **FAKEDEMO CONTENT**. Replace or delete when real photos are ready.
 
-- Focus: street lights, reflections, neon signs.  
-- Gear: 50mm prime, tripod; exposure bracketing.  
-- Notes: watching for noise in shadows; next time test noise reduction.  
+- Focus: street lights, reflections, neon signs.
+- Gear: 50mm prime, tripod; exposure bracketing.
+- Notes: watching for noise in shadows; next time test noise reduction.

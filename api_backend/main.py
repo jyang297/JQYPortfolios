@@ -34,7 +34,7 @@ structlog.configure(
         structlog.processors.StackInfoRenderer(),
         structlog.processors.format_exc_info,
         structlog.processors.UnicodeDecoder(),
-        structlog.processors.JSONRenderer()
+        structlog.processors.JSONRenderer(),
     ],
     context_class=dict,
     logger_factory=structlog.stdlib.LoggerFactory(),
@@ -45,15 +45,15 @@ logger = structlog.get_logger()
 
 # Prometheus metrics (cloud-agnostic, works with AWS CloudWatch, AliCloud ARMS, or standalone Prometheus)
 http_requests_total = Counter(
-    'portfolio_http_requests_total',
-    'Total HTTP requests',
-    ['method', 'endpoint', 'status']
+    "portfolio_http_requests_total",
+    "Total HTTP requests",
+    ["method", "endpoint", "status"],
 )
 
 http_request_duration_seconds = Histogram(
-    'portfolio_http_request_duration_seconds',
-    'HTTP request duration in seconds',
-    ['method', 'endpoint']
+    "portfolio_http_request_duration_seconds",
+    "HTTP request duration in seconds",
+    ["method", "endpoint"],
 )
 
 # Initialize FastAPI
@@ -93,7 +93,7 @@ async def logging_and_metrics_middleware(request: Request, call_next):
             "request_started",
             method=method,
             path=path,
-            client_ip=request.client.host if request.client else "unknown"
+            client_ip=request.client.host if request.client else "unknown",
         )
 
     # Process request
@@ -105,15 +105,12 @@ async def logging_and_metrics_middleware(request: Request, call_next):
     # Record metrics
     if ENABLE_METRICS:
         http_requests_total.labels(
-            method=method,
-            endpoint=path,
-            status=response.status_code
+            method=method, endpoint=path, status=response.status_code
         ).inc()
 
-        http_request_duration_seconds.labels(
-            method=method,
-            endpoint=path
-        ).observe(duration)
+        http_request_duration_seconds.labels(method=method, endpoint=path).observe(
+            duration
+        )
 
     # Log request completion
     if ENABLE_REQUEST_LOGGING:
@@ -122,7 +119,7 @@ async def logging_and_metrics_middleware(request: Request, call_next):
             method=method,
             path=path,
             status_code=response.status_code,
-            duration_seconds=round(duration, 3)
+            duration_seconds=round(duration, 3),
         )
 
     return response
@@ -136,7 +133,7 @@ async def root():
         "status": "ok",
         "message": "Portfolio API is running",
         "version": "1.0.0",
-        "environment": ENVIRONMENT
+        "environment": ENVIRONMENT,
     }
 
 
@@ -157,8 +154,8 @@ async def health_check():
         "components": {
             "supabase": "configured" if supabase_configured else "not_configured",
             "metrics": "enabled" if ENABLE_METRICS else "disabled",
-            "logging": "enabled" if ENABLE_REQUEST_LOGGING else "disabled"
-        }
+            "logging": "enabled" if ENABLE_REQUEST_LOGGING else "disabled",
+        },
     }
 
     logger.info("health_check_performed", **health_status)
@@ -194,7 +191,7 @@ async def startup_event():
         "application_startup",
         environment=ENVIRONMENT,
         metrics_enabled=ENABLE_METRICS,
-        logging_enabled=ENABLE_REQUEST_LOGGING
+        logging_enabled=ENABLE_REQUEST_LOGGING,
     )
 
 

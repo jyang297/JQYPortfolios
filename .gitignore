@@ -3,6 +3,7 @@ astro_frontend/dist/
 astro_frontend/.astro/
 astro_frontend/node_modules/
 astro_frontend/.env
+astro_frontend/.env.*
 astro_frontend/.env.production
 
 # Backend (Python/FastAPI)
@@ -13,6 +14,7 @@ api_backend/venv/
 api_backend/env/
 api_backend/.env
 api_backend/.env.local
+api_backend/.env.*
 
 # Logs
 npm-debug.log*
@@ -27,6 +29,7 @@ pnpm-debug.log*
 .idea/
 .vscode/
 .claude/
+.DS_Store
 
 # Testing
 .pytest_cache/
@@ -37,3 +40,6 @@ api_backend/.keys
 
 BackupDocs/
 
+# Root environment files
+.env
+.env.*
