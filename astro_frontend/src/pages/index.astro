@@ -1,0 +1,290 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Blog posts (sorted newest first)
+const blog = (await getCollection("blog", ({ data }) => !data.isDraft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+const recentPosts = blog.slice(0, 3);
+
+// Latest items per category (LRU style: take newest 3)
+const latestAIAgents = (await getCollection("agents", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const latestML = (await getCollection("ml", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+
+<Layout>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">
+        Hi, I'm <span class="text-gradient">Jiaqi Yang</span>
+      </h1>
+      <p class="hero-subtitle">
+        ML/AI Engineer specializing in building intelligent systems and deploying scalable machine learning solutions
+      </p>
+      <div class="hero-buttons">
+        <a href="#recent-activities" class="btn btn-primary">Recent Activities</a>
+        <a href="mailto:jyang297@uottawa.ca" class="btn btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-card">
+        <h2 class="text-center" style="margin-bottom: 3rem;">What I Do</h2>
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title">Machine Learning</h3>
+              <p class="card-description">
+                Building and training ML models using PyTorch, scikit-learn, and modern deep learning techniques for real-world applications
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title">AI Engineering</h3>
+              <p class="card-description">
+                Developing LLM applications with LangChain, LlamaIndex, and RAG systems for intelligent information retrieval
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title">MLOps & Deployment</h3>
+              <p class="card-description">
+                Deploying models to production using Docker, AWS, GCP, FastAPI, and MLflow with CI/CD pipelines
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Activities -->
+  <section class="section" id="recent-activities">
+    <div class="container">
+      <div class="section-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+          <h2>Recent Activities</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card" style="padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <h3 class="card-title" style="margin: 0;">Latest Blog</h3>
+              <a href="/blog" class="btn btn-ghost" style="padding: 0.25rem 0.5rem;">All</a>
+            </div>
+            <div style="display: grid; gap: 0.75rem;">
+              {recentPosts.slice(0, 3).map((post) => (
+                <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
+                  <div style="display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline;">
+                    <p class="tag" style="margin: 0;">Blog</p>
+                    <time datetime={post.data.pubDate.toISOString()} style="color: var(--color-text-secondary); font-size: 0.9rem;">
+                      {post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  </div>
+                  <p class="card-title" style="margin: 0.35rem 0 0;">{post.data.title}</p>
+                  <p class="card-description" style="margin: 0.25rem 0 0;">{post.data.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <h3 class="card-title" style="margin: 0;">Latest AI Projects</h3>
+              <a href="/agents" class="btn btn-ghost" style="padding: 0.25rem 0.5rem;">All</a>
+            </div>
+            <div style="display: grid; gap: 0.75rem;">
+              {latestAIAgents.map((agent) => (
+                <a
+                  href={`/agents/${agent.slug}`}
+                  style="text-decoration: none; color: inherit;"
+                >
+                  <div style="display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline;">
+                    <p class="tag" style="margin: 0;">AI Agent</p>
+                    <time datetime={agent.data.date.toISOString()} style="color: var(--color-text-secondary); font-size: 0.9rem;">
+                      {agent.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  </div>
+                  <p class="card-title" style="margin: 0.35rem 0 0;">
+                    {agent.data.title}
+                    {agent.slug.startsWith("demo-") && <span class="tag" style="margin-left: 0.5rem;">DEMO</span>}
+                  </p>
+                  <p class="card-description" style="margin: 0.25rem 0 0;">{agent.data.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="card" style="padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <h3 class="card-title" style="margin: 0;">Latest ML Projects</h3>
+              <a href="/ml" class="btn btn-ghost" style="padding: 0.25rem 0.5rem;">All</a>
+            </div>
+            <div style="display: grid; gap: 0.75rem;">
+              {latestML.map((project) => (
+                <a
+                  href={`/ml/${project.slug}`}
+                  style="text-decoration: none; color: inherit;"
+                >
+                  <div style="display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline;">
+                    <p class="tag" style="margin: 0;">ML</p>
+                    <time datetime={project.data.date.toISOString()} style="color: var(--color-text-secondary); font-size: 0.9rem;">
+                      {project.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  </div>
+                  <p class="card-title" style="margin: 0.35rem 0 0;">
+                    {project.data.title}
+                    {project.slug.startsWith("demo-") && <span class="tag" style="margin-left: 0.5rem;">DEMO</span>}
+                  </p>
+                  <p class="card-description" style="margin: 0.25rem 0 0;">{project.data.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-card">
+        <h2 class="text-center" style="margin-bottom: 3rem;">Tech Stack</h2>
+        <div class="tech-stack-grid">
+          <div class="tech-category">
+            <h3 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: var(--color-text-secondary);">Languages & Tools</h3>
+            <div class="tech-tags">
+              <span class="tag">Python</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Go</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Git</span>
+
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: var(--color-text-secondary);">ML & AI</h3>
+            <div class="tech-tags">
+              <span class="tag tag-accent">PyTorch</span>
+              <span class="tag tag-accent">LlamaIndex</span>
+              <span class="tag tag-accent">LangChain</span>
+              <span class="tag tag-accent">scikit-learn</span>
+              <span class="tag tag-accent">Hugging Face</span>
+              <span class="tag tag-accent">vLLM</span>
+              <span class="tag tag-accent">DSPy</span>
+              <span class="tag tag-accent">SGLang</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: var(--color-text-secondary);">Infrastructure</h3>
+            <div class="tech-tags">
+              <span class="tag">Docker</span>
+              <span class="tag">AWS</span>
+              <span class="tag">GCP</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">MLflow</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: var(--color-text-secondary);">Data & Vector DB</h3>
+            <div class="tech-tags">
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Elasticsearch</span>
+              <span class="tag">FAISS</span>
+              <span class="tag">Milvus</span>
+              <span class="tag">OpenSearch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Blog Posts -->
+  {recentPosts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+            <h2>Recent Posts</h2>
+            <a href="/blog" class="btn btn-ghost">View All</a>
+          </div>
+          <div class="grid grid-3">
+            {recentPosts.map((post) => (
+              <a href={`/blog/${post.slug}`} class="card" style="text-decoration: none;">
+                {post.data.image && (
+                  <img src={post.data.image.src} alt={post.data.title} class="card-image" />
+                )}
+                <div class="card-content">
+                  <div class="blog-meta">
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  </div>
+                  <h3 class="card-title">{post.data.title}</h3>
+                  <p class="card-description">{post.data.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Contact Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-card">
+        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+          <h2 style="margin-bottom: 1rem;">Let's Work Together</h2>
+          <p style="font-size: 1.125rem; margin-bottom: 2rem;">
+            I'm always open to discussing new projects, opportunities, and collaborations
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+            <a href="mailto:jyang297@uottawa.ca" class="btn btn-primary">Email Me</a>
+            <a href="https://github.com/jyang297" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+            <a href="https://www.linkedin.com/in/jiaqi-yang-b3014424b/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .tech-category {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .tech-stack-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

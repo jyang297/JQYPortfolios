@@ -1,0 +1,63 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const mlProjects = (await getCollection("ml", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout>
+  <section class="section">
+    <div class="container">
+      <div class="section-card">
+        <h1>Machine Learning</h1>
+        <p style="margin-top: 1rem; color: var(--color-text-secondary);">
+          Model builds, evaluations, and deployment notes from recent ML work.
+        </p>
+
+        {mlProjects.length === 0 ? (
+          <p style="margin-top: 2rem;">No ML projects yet. Add markdown files to <code>src/content/ml/</code>.</p>
+        ) : (
+          <div style="margin-top: 2rem; display: grid; gap: 1rem;">
+            {mlProjects.map((project) => (
+              <a href={`/ml/${project.slug}`} class="card" style="padding: 1.25rem; text-decoration: none; color: inherit;">
+                <header style="display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;">
+                  <h2 class="card-title" style="margin: 0;">
+                    {project.data.title}
+                    {project.slug.startsWith("demo-") && (
+                      <span class="tag" style="margin-left: 0.5rem;">DEMO</span>
+                    )}
+                  </h2>
+                  <time datetime={project.data.date.toISOString()} style="color: var(--color-text-secondary); font-size: 0.95rem;">
+                    {project.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </time>
+                </header>
+                <p class="card-description" style="margin: 0.75rem 0;">
+                  {project.data.description}
+                </p>
+                {project.data.technologies && (
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    {project.data.technologies.map((tech) => (
+                      <span class="tag tag-accent">{tech}</span>
+                    ))}
+                  </div>
+                )}
+                <div style="margin-top: 0.75rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                  <span class="tag" style="background: var(--color-surface-2);">
+                    {project.data.status}
+                  </span>
+                  {project.data.github && (
+                    <span class="tag">GitHub ↗</span>
+                  )}
+                  {project.data.demo && (
+                    <span class="tag">Demo ↗</span>
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</Layout>

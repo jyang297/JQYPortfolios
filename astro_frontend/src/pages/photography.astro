@@ -1,0 +1,41 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const albums = (await getCollection("albums", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout>
+  <section class="section">
+    <div class="container">
+      <div class="section-card">
+        <h1>Photography</h1>
+        <p style="margin-top: 1rem; color: var(--color-text-secondary);">
+          Albums and visual experiments. Add Markdown files in <code>src/content/albums/</code> to publish.
+        </p>
+
+        {albums.length === 0 ? (
+          <p style="margin-top: 2rem;">No albums yet. Add markdown files to <code>src/content/albums/</code>.</p>
+        ) : (
+          <div style="margin-top: 2rem; display: grid; gap: 1rem;">
+            {albums.map((album) => (
+              <a href={`/photography/${album.slug}`} class="card" style="padding: 1.25rem; text-decoration: none; color: inherit;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem;">
+                  <h2 class="card-title" style="margin: 0;">
+                    {album.data.title}
+                    {album.slug.startsWith("demo-") && <span class="tag" style="margin-left: 0.5rem;">DEMO</span>}
+                  </h2>
+                  <time datetime={album.data.date.toISOString()} style="color: var(--color-text-secondary); font-size: 0.95rem;">
+                    {album.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </time>
+                </div>
+                <p class="card-description" style="margin-top: 0.5rem;">{album.data.description}</p>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,44 @@
+---
+// components
+import BaseHead from "@/layouts/BaseHead.astro";
+import Footer from "./Footer.astro";
+import Nav from "./Nav.astro";
+
+// styles
+import "@/styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <BaseHead {...Astro.props} />
+  <body>
+    <!-- Prevent theme flash -->
+    <script is:inline>
+      const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    </script>
+
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Analytics tracking -->
+    <script>
+      import { trackPageView, setupPageEngagement } from '@/utils/analytics';
+
+      // Track page view when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          trackPageView();
+          setupPageEngagement();
+        });
+      } else {
+        // DOM already loaded
+        trackPageView();
+        setupPageEngagement();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+# Supabase CLI configuration
+# This file tracks your Supabase project settings
+
+[api]
+# API URL and ports
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+# Database configuration
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+# Studio UI port
+port = 54323
+
+[auth]
+# Auth configuration
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:4321"]
+
+[storage]
+# Storage configuration
+enabled = true
+
+# File size limits
+file_size_limit = "50MiB"
+
+# Default project settings - update these with your actual project
+# Get these from: https://app.supabase.com/project/_/settings/api
+[project]
+# project_ref = "your-project-ref"
+# supabase_url = "https://your-project-ref.supabase.co"
