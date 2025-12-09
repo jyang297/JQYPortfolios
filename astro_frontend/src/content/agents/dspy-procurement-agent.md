@@ -1,15 +1,15 @@
 ---
 title: "Intelligent Procurement Agent with DSPy and Vector Retrieval"
 description: "Seven-stage DSPy pipeline for supplier selection with Milvus-based RAG, compliance checks, and risk scoring."
-pubDate: 2025-01-10
-isDraft: false
-author: "Jiaqi Yang"
-tags:
+date: 2025-01-10
+technologies:
   - DSPy
-  - Procurement
-  - RAG
   - Milvus
-image: "@/assets/blog/placeholder.jpg"
+  - OpenAI
+  - Python
+status: Completed
+draft: false
+github: "https://github.com/jiaqi-yang"
 ---
 
 ## Overview
