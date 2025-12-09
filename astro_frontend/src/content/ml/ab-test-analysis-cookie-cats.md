@@ -9,6 +9,7 @@ technologies:
   - Game Analytics
   - Retention Analysis
   - Mobile Games
+status: Completed
 github: "https://github.com/example/demo-ml"
 image: "@/assets/blog/cookiecats-abtest.jpg"
 ---
@@ -450,7 +451,6 @@ Using the Bootstrap method, we assessed the stability of retention differences a
 - **Day-7 Retention:** A significant difference was observed between the experimental and control groups, indicating that the adjustment of the progression gate positively impacts long-term retention.  
 
 Taken together, the experimental results suggest that moving the first progression gate from Level 30 to Level 40 does not significantly affect gameplay rounds or short-term retention but does improve long-term retention. This implies that player experience in the short run is unaffected, while sustained engagement may benefit from the adjustment.
-
 
 
 
