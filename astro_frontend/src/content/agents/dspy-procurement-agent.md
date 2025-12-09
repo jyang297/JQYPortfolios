@@ -1,4 +1,16 @@
-# Intelligent Procurement Agent with DSPy and Vector Retrieval
+---
+title: "Intelligent Procurement Agent with DSPy and Vector Retrieval"
+description: "Seven-stage DSPy pipeline for supplier selection with Milvus-based RAG, compliance checks, and risk scoring."
+pubDate: 2025-01-10
+isDraft: false
+author: "Jiaqi Yang"
+tags:
+  - DSPy
+  - Procurement
+  - RAG
+  - Milvus
+image: "@/assets/blog/placeholder.jpg"
+---
 
 ## Overview
 
@@ -49,7 +61,6 @@ All pipeline stages enforce strict input/output contracts via DSPy signatures:
 - `ComplianceSignature`: Validates is_compliant flag against compliance_rules
 
 **Custom Reward Functions**
-Two domain-specific reward functions guide refinement:
 
 ```python
 def reward_budget_present(inputs, pred) -> float:
@@ -172,6 +183,7 @@ Milvus deployed via custom shell script (`MyMilvus/milvus-light.sh`) with Docker
 > "We need IT servers for our Montreal data center upgrade. Expected budget: around 40k-60k. Delivery must be within 5 weeks."
 
 **System Output**:
+
 ```json
 {
   "status": "APPROVED",
@@ -251,8 +263,6 @@ This project demonstrates that modern AI systems require more than just LLM API 
 - **Engineering discipline** including type safety, testing, and configuration management
 
 The procurement domain provides an ideal testbed for these techniques—sufficiently complex to require multi-step reasoning, yet constrained enough to validate outputs against hard rules.
-
-For organizations evaluating AI adoption in enterprise workflows, this architecture offers a blueprint: start with clearly defined stages (requirement extraction, supplier matching, compliance validation), encode business logic explicitly, and use LLMs for the fuzzy middle (ranking, risk assessment) where human judgment traditionally applied.
 
 ---
 
