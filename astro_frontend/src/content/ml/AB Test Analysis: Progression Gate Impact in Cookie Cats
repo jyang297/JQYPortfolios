@@ -1,17 +1,17 @@
 ---
 title: "A/B Test Analysis: Progression Gate Impact in Cookie Cats"
 description: "A complete walkthrough of designing, running, and interpreting an A/B test to optimize progression gate placement in the mobile game Cookie Cats."
-pubDate: 2025-01-09
-isDraft: false
+date: 2025-6-09
+draft: false
 author: "Jiaqi Yang"
-tags:
+technologies:
   - A/B Testing
   - Game Analytics
   - Retention Analysis
   - Mobile Games
+github: "https://github.com/example/demo-ml"
 image: "@/assets/blog/cookiecats-abtest.jpg"
 ---
-
 
 
 # Background
